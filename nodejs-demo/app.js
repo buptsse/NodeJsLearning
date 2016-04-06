@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var movie = require('./routes/movie')
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -55,6 +58,27 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+
+
+// var router = express.Router();
+
+// 首頁路由 (http://localhost:8080)
+routes.get('/movie/add', function(req, res) {
+  // res.send('this is a sample!');
+    movie.movieAdd(req, res);
+});
+
+// 舊方法
+// app.get('/sample', function(req, res) {
+//   res.send('this is a sample!');
+// });
+
+// app.get('/movie/add',movie.movieAdd);//增加
+routes.post('/movie/add',movie.doMovieAdd);//提交
+
+routes.get('/movie/:name',movie.movieAdd);//编辑查询
+routes.get('/movie/json/:name',movie.movieJSON);//JSON数据
 
 
 module.exports = app;
